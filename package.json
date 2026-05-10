@@ -1,6 +1,6 @@
 {
   "name": "@sykuang/rednote-mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Xiaohongshu (rednote / 小红书) MCP server for Claude Desktop, Cursor and AI agents — search, read, comment, like and publish notes via npx. Node.js + Playwright port of xiaohongshu-mcp.",
   "license": "MIT",
   "type": "module",
