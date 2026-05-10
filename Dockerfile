@@ -1,15 +1,25 @@
-FROM mcr.microsoft.com/playwright:v1.49.0-jammy
+FROM mcr.microsoft.com/playwright:v1.49.0-jammy AS builder
 
 WORKDIR /app
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 
 COPY package.json package-lock.json* ./
-RUN npm install --omit=dev
+RUN npm ci --ignore-scripts
 
 COPY tsconfig.json ./
 COPY src ./src
-RUN npm install typescript --no-save && npx tsc
+RUN npx tsc
 
+FROM mcr.microsoft.com/playwright:v1.49.0-jammy
+
+WORKDIR /app
 ENV NODE_ENV=production
-EXPOSE 18060
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 
+COPY package.json package-lock.json* ./
+RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
+
+COPY --from=builder /app/dist ./dist
+
+EXPOSE 18060
 CMD ["node", "dist/main.js", "--port", ":18060"]
