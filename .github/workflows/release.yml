@@ -27,6 +27,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
+      # Trusted Publishing 需要 npm >= 11.5.1; runner 內建版本太舊
+      - name: Update npm to latest
+        run: npm install -g npm@latest
+
       - name: Install deps
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
