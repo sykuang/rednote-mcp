@@ -2,6 +2,8 @@
 
 [![npm](https://img.shields.io/npm/v/@sykuang/rednote-mcp.svg)](https://www.npmjs.com/package/@sykuang/rednote-mcp)
 
+繁體中文 | [English](./README.en.md)
+
 rednote.com（小紅書海外版 / REDNOTE）MCP server。
 
 本專案為 [xpzouying/xiaohongshu-mcp](https://github.com/xpzouying/xiaohongshu-mcp) 的**海外版（REDNOTE）實作**，改用 Node.js + TypeScript + Playwright，方便使用者透過 `npx` 直接安裝使用，無需自行編譯。
