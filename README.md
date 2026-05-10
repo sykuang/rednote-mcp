@@ -1,7 +1,10 @@
 # rednote-mcp (Node.js)
 
-rednote.com（小红书海外站）MCP server，TypeScript + Playwright 實作。
-這是 [`rednote-mcp` Go 版本](../rednote-mcp-go) 的 Node.js port，功能對齊。
+[![npm](https://img.shields.io/npm/v/@sykuang/rednote-mcp.svg)](https://www.npmjs.com/package/@sykuang/rednote-mcp)
+
+rednote.com（小紅書海外版 / REDNOTE）MCP server。
+
+本專案為 [xpzouying/xiaohongshu-mcp](https://github.com/xpzouying/xiaohongshu-mcp) 的**海外版（REDNOTE）實作**，改用 Node.js + TypeScript + Playwright，方便使用者透過 `npx` 直接安裝使用，無需自行編譯。
 
 ## 功能
 
@@ -144,7 +147,11 @@ docker run -p 18060:18060 -v $(pwd)/cookies.json:/app/cookies.json rednote-mcp-n
 
 ## 與 Go 版本差異
 
-- 用 Playwright 取代 go-rod；XHR 攔截改用 `page.on('response')`，比 CDP 更簡單。
-- HTTP 框架用 Fastify 取代 Gin。
-- MCP 用官方 `@modelcontextprotocol/sdk`。
-- 業務邏輯、API 端點、MCP 工具 schema 與 Go 版本完全對齊。
+本專案為 [xpzouying/xiaohongshu-mcp](https://github.com/xpzouying/xiaohongshu-mcp)（小紅書中國站，Go 實作）的**海外版（REDNOTE）port**：
+
+- **目標站點不同**：原版針對 xiaohongshu.com（中國站），本專案針對 rednote.com（海外站）
+- **實作語言**：Go → **Node.js / TypeScript**（方便 `npx` 安裝、跨平台無需編譯）
+- 用 **Playwright** 取代 go-rod；XHR 攔截改用 `page.on('response')`，比 CDP 更簡單
+- HTTP 框架用 **Fastify** 取代 Gin
+- MCP 用官方 **`@modelcontextprotocol/sdk`**
+- 業務邏輯、API 端點、MCP 工具 schema 與原版完全對齊
