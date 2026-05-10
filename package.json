@@ -1,0 +1,58 @@
+{
+  "name": "@sykuang/rednote-mcp",
+  "version": "1.0.0",
+  "description": "rednote.com (xiaohongshu overseas) MCP server + HTTP API, Node.js port of rednote-mcp-go",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/main.js",
+  "bin": {
+    "rednote-mcp": "dist/main.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "rednote",
+    "xiaohongshu",
+    "xhs",
+    "mcp",
+    "model-context-protocol",
+    "playwright"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sykuang/rednote-mcp.git"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/main.ts",
+    "start": "node dist/main.js",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tsc --noEmit",
+    "postinstall": "playwright install chromium",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "fastify": "^5.0.0",
+    "file-type": "^19.0.0",
+    "pino": "^9.5.0",
+    "pino-pretty": "^11.3.0",
+    "playwright": "^1.49.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,7 @@
+node_modules
+dist
+*.log
+*.tgz
+cookies.json
+.DS_Store
+.env
