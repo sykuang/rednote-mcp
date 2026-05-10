@@ -71,9 +71,35 @@ npm run lint         # tsc --noEmit
 
 ## Docker
 
+### 使用預編譯 image (GHCR)
+
+```bash
+# 直接 docker run
+docker run -d --name rednote-mcp \
+  -p 18060:18060 \
+  -v $(pwd)/cookies.json:/app/cookies.json \
+  --shm-size=1g \
+  ghcr.io/sykuang/rednote-mcp:latest
+```
+
+### docker compose
+
+```bash
+# 取得 cookies.json 後 (參考下方登入流程), 直接啟動
+docker compose up -d
+docker compose logs -f
+```
+
+`docker-compose.yml` 已包含：
+- 使用 GHCR 預編譯 image (`ghcr.io/sykuang/rednote-mcp:latest`)
+- `cookies.json` 持久化 mount
+- `shm_size: 1gb`（瀏覽器子程序需要）
+
+### 從原始碼 build
+
 ```bash
 docker build -t rednote-mcp-node .
-docker run -p 18060:18060 -v /tmp:/tmp rednote-mcp-node
+docker run -p 18060:18060 -v $(pwd)/cookies.json:/app/cookies.json rednote-mcp-node
 ```
 
 ## 與 Go 版本差異

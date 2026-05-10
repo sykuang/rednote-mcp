@@ -1,0 +1,16 @@
+services:
+  rednote-mcp:
+    # 使用 GHCR 上的預編譯 image
+    image: ghcr.io/sykuang/rednote-mcp:latest
+    container_name: rednote-mcp
+    restart: unless-stopped
+    ports:
+      - '18060:18060'
+    volumes:
+      # cookies.json 持久化, 避免容器重啟重新登入
+      - ./cookies.json:/app/cookies.json
+    environment:
+      COOKIES_PATH: /app/cookies.json
+      # XHS_PROXY: http://your-proxy:port  # 可選: HTTP proxy
+    # MCP 工具的瀏覽器子程序需要的記憶體
+    shm_size: 1gb
