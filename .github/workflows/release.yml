@@ -35,11 +35,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Publish
-        # provenance 提供供應鏈簽章 (公開 scoped 套件支援)
+      - name: Publish (Trusted Publishing via OIDC)
+        # 透過 GitHub OIDC 認證, 不需要 NPM_TOKEN
+        # 需先在 npm 設定 Trusted Publisher: repo=sykuang/rednote-mcp, workflow=release.yml
         run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   docker:
     name: Build & Push Docker
