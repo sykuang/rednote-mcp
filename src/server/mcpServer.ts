@@ -44,7 +44,8 @@ export function buildMcpServer(svc: XiaohongshuService): McpServer {
     'check_login_status',
     {
       title: 'Check Login Status',
-      description: '检查小红书登录状态',
+      description:
+        '检查小红书登录状态。返回 isLoggedIn；若 false，请先调用 get_login_qrcode 让用户扫码登录，再重试操作。建议在调用 search/list_feeds/publish/comment/like/favorite 等需要登录的工具前先呼叫此工具。',
       inputSchema: {},
     },
     wrap('check_login_status', async () => {
@@ -59,7 +60,8 @@ export function buildMcpServer(svc: XiaohongshuService): McpServer {
     'get_login_qrcode',
     {
       title: 'Get Login QR Code',
-      description: '获取登录二维码（返回 Base64 图片和超时时间）',
+      description:
+        '获取小红书登录二维码（Base64 PNG + 超时秒数）。当 check_login_status 返回 isLoggedIn:false 时调用：把图片直接展示给用户扫码登录；扫码完成后 cookies 会自动保存，再重试原本的操作。',
       inputSchema: {},
     },
     wrap('get_login_qrcode', async () => {
@@ -168,7 +170,8 @@ export function buildMcpServer(svc: XiaohongshuService): McpServer {
     'list_feeds',
     {
       title: 'List Feeds',
-      description: '获取 rednote.com（小红书海外站）首页 Feeds 列表。每个 feed 都带 noteUrl 字段。',
+      description:
+        '获取 rednote.com（小红书海外站）首页 Feeds 列表（需登录）。每个 feed 都带 noteUrl 字段。未登录时会被风控墙拦截，请先 check_login_status / get_login_qrcode。',
       inputSchema: {},
     },
     wrap('list_feeds', async () => jsonOK(await svc.listFeeds())),
@@ -191,7 +194,8 @@ export function buildMcpServer(svc: XiaohongshuService): McpServer {
     'search_feeds',
     {
       title: 'Search Feeds',
-      description: '搜索 rednote.com 内容（需要已登录）',
+      description:
+        '搜索 rednote.com 内容（需要已登录；未登录会触发风控/登录墙导致超时——此时请先调用 check_login_status，未登录则用 get_login_qrcode 让用户扫码后再重试）',
       inputSchema: SearchFeedsArgs,
     },
     wrap('search_feeds', async (a: z.infer<z.ZodObject<typeof SearchFeedsArgs>>) => {

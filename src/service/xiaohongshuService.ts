@@ -55,6 +55,8 @@ export interface LoginStatusResponse {
   username?: string;
   nickname?: string;
   redId?: string;
+  // 未登入時給 LLM 的處理提示
+  hint?: string;
 }
 
 export interface LoginQrcodeResponse {
@@ -122,7 +124,12 @@ export class XiaohongshuService {
     return withPage(async (page) => {
       const loginAction = new LoginAction(page);
       const ok = await loginAction.checkLoginStatus();
-      if (!ok) return { isLoggedIn: false };
+      if (!ok) {
+        return {
+          isLoggedIn: false,
+          hint: '未登入或 cookies 已失效。請呼叫 get_login_qrcode 取得 QR code 給使用者掃碼登入；登入完成後再重試原本操作。',
+        };
+      }
       // 同一個 page session 內接著抓 self profile，取得真實 nickname / redId
       const userId = await loginAction.getMyUserID();
       try {
