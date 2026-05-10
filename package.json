@@ -1,7 +1,7 @@
 {
   "name": "@sykuang/rednote-mcp",
   "version": "1.0.0",
-  "description": "rednote.com (xiaohongshu overseas) MCP server + HTTP API, Node.js port of rednote-mcp-go",
+  "description": "Xiaohongshu (rednote / 小红书) MCP server for Claude Desktop, Cursor and AI agents — search, read, comment, like and publish notes via npx. Node.js + Playwright port of xiaohongshu-mcp.",
   "license": "MIT",
   "type": "module",
   "main": "dist/main.js",
@@ -11,6 +11,7 @@
   "files": [
     "dist",
     "README.md",
+    "README.en.md",
     "LICENSE"
   ],
   "publishConfig": {
@@ -21,12 +22,25 @@
   },
   "keywords": [
     "rednote",
+    "rednote-mcp",
     "xiaohongshu",
+    "xiaohongshu-mcp",
     "xhs",
+    "小红书",
     "mcp",
+    "mcp-server",
     "model-context-protocol",
-    "playwright"
+    "claude",
+    "claude-desktop",
+    "cursor",
+    "ai-agent",
+    "playwright",
+    "npx"
   ],
+  "homepage": "https://github.com/sykuang/rednote-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/sykuang/rednote-mcp/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sykuang/rednote-mcp.git"
