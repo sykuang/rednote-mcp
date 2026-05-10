@@ -1,12 +1,14 @@
-# rednote-mcp (Node.js)
+# rednote-mcp — Xiaohongshu (小红书 / REDNOTE) MCP server (Node.js)
 
 [![npm](https://img.shields.io/npm/v/@sykuang/rednote-mcp.svg)](https://www.npmjs.com/package/@sykuang/rednote-mcp)
 
 [繁體中文](./README.md) | English
 
-MCP server for rednote.com (the overseas version of Xiaohongshu / REDNOTE).
+**Xiaohongshu / rednote / 小红书 MCP server** that lets Claude Desktop, Cursor, Codex and any other MCP/AI agent search, read, comment, like and publish notes on rednote.com (Xiaohongshu's overseas site) through natural language.
 
-This project is the **overseas (REDNOTE) port** of [xpzouying/xiaohongshu-mcp](https://github.com/xpzouying/xiaohongshu-mcp), reimplemented in Node.js + TypeScript + Playwright so users can install and run it directly with `npx`, no compilation required.
+This project is the **Node.js + TypeScript + Playwright port** of [xpzouying/xiaohongshu-mcp](https://github.com/xpzouying/xiaohongshu-mcp) (Go, targets the China site xiaohongshu.com), targeting **rednote.com** (overseas REDNOTE) and installable directly via `npx` — no compilation required.
+
+**Keywords**: xiaohongshu mcp · rednote mcp · xiaohongshu-mcp · 小红书 mcp · Claude Desktop · Cursor · AI agent · MCP server
 
 ## Features
 
