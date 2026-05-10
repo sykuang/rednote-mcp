@@ -13,6 +13,21 @@ export class LoginAction {
     return (await this.page.$(LOGIN_OK_SEL)) !== null;
   }
 
+  // 從 sidebar 「Me」 連結抓出當前登入者的 userID（海外版 DOM 不含暱稱，僅顯示 i18n "Me"）
+  async getMyUserID(): Promise<string> {
+    try {
+      const href = await this.page
+        .locator('div.main-container li.user.side-bar-component a.link-wrapper')
+        .first()
+        .getAttribute('href', { timeout: 5_000 });
+      if (!href) return '';
+      const m = href.match(/\/user\/profile\/([^/?#]+)/);
+      return m?.[1] ?? '';
+    } catch {
+      return '';
+    }
+  }
+
   // 取得二維碼。回傳 [imgSrc, alreadyLoggedIn]
   async fetchQrcodeImage(): Promise<{ img: string; loggedIn: boolean }> {
     await this.page.goto(`${hostURL()}/explore`, { waitUntil: 'load', timeout: 60_000 });

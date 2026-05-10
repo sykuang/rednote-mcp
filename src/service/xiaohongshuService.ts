@@ -51,7 +51,12 @@ export interface PublishVideoRequest {
 
 export interface LoginStatusResponse {
   isLoggedIn: boolean;
+  userId?: string;
   username?: string;
+  nickname?: string;
+  redId?: string;
+  // 未登入時給 LLM 的處理提示
+  hint?: string;
 }
 
 export interface LoginQrcodeResponse {
@@ -117,8 +122,32 @@ export class XiaohongshuService {
 
   async checkLoginStatus(): Promise<LoginStatusResponse> {
     return withPage(async (page) => {
-      const ok = await new LoginAction(page).checkLoginStatus();
-      return { isLoggedIn: ok, username: USERNAME };
+      const loginAction = new LoginAction(page);
+      const ok = await loginAction.checkLoginStatus();
+      if (!ok) {
+        return {
+          isLoggedIn: false,
+          hint: '未登入或 cookies 已失效。請呼叫 get_login_qrcode 取得 QR code 給使用者掃碼登入；登入完成後再重試原本操作。',
+        };
+      }
+      // 同一個 page session 內接著抓 self profile，取得真實 nickname / redId
+      const userId = await loginAction.getMyUserID();
+      try {
+        const profile = await new UserProfileAction(page).getMyProfileViaSidebar();
+        const info = profile.userBasicInfo;
+        return {
+          isLoggedIn: true,
+          userId: userId || undefined,
+          nickname: info?.nickname,
+          redId: info?.redId,
+          username: info?.nickname || userId || USERNAME,
+        };
+      } catch (e) {
+        logger.warn({ err: (e as Error).message }, 'fetch self profile failed');
+        return userId
+          ? { isLoggedIn: true, userId, username: userId }
+          : { isLoggedIn: true, username: USERNAME };
+      }
     });
   }
 
